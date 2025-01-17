@@ -6,14 +6,23 @@ using UnityEngine.UI;
 
 public class SelectAnswer : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _question;
     [SerializeField] private List<Button> _options = new();
-    [SerializeField] private List<QuestionData> _questionData = new();
+
+    private TextMeshProUGUI _question;
+    private List<QuestionData> _questionData;
+    private DisplayHeroPerformedView _displayHeroPerformedView;
 
     private Dictionary<Hero, int> _characterScores = new Dictionary<Hero, int>();
     private int _currentQuestionIndex = 0;
 
-    private void Start()
+    public void Initialze(TextMeshProUGUI question, List<QuestionData> questionData, DisplayHeroPerformedView displayHeroPerformedView)
+    {
+        _question = question;
+        _questionData = questionData;
+        _displayHeroPerformedView = displayHeroPerformedView;
+    }
+
+    public void StartSelectAnswer()
     {
         foreach (Hero hero in Enum.GetValues(typeof(Hero)))
             _characterScores[hero] = 0;
@@ -54,7 +63,6 @@ public class SelectAnswer : MonoBehaviour
             if (_characterScores.ContainsKey(heroScore.Hero))
                 _characterScores[heroScore.Hero] += heroScore.Score;
 
-
         _currentQuestionIndex++;
         ShowQuestion(_currentQuestionIndex);
     }
@@ -80,13 +88,13 @@ public class SelectAnswer : MonoBehaviour
         {
             if (score.Value > maxScore)
             {
-                maxScore = score.Value;  
-                topHeroes.Clear();  
+                maxScore = score.Value;
+                topHeroes.Clear();
                 topHeroes.Add(score.Key);
             }
             else if (score.Value == maxScore)
             {
-                topHeroes.Add(score.Key);  
+                topHeroes.Add(score.Key);
             }
         }
 
@@ -96,5 +104,7 @@ public class SelectAnswer : MonoBehaviour
 
         foreach (Button button in _options)
             button.gameObject.SetActive(false);
+
+        _displayHeroPerformedView.ShowHero(topHero);
     }
 }

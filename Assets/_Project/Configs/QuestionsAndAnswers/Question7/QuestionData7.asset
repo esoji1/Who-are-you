@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc7fc2369d00a446a21dd3ba12bb9dd, type: 3}
+  m_Name: QuestionData7
+  m_EditorClassIdentifier: 
+  <QuestionText>k__BackingField: "\u041A\u0430\u043A \u0442\u044B \u0433\u043E\u0442\u043E\u0432\u0438\u0448\u044C\u0441\u044F
+    \u043A \u0432\u0430\u0436\u043D\u043E\u0439 \u0438\u0433\u0440\u0435?"
+  <Options>k__BackingField:
+  - {fileID: 11400000, guid: c14efe6faca938b4f9ef83ef0d5c7845, type: 2}
+  - {fileID: 11400000, guid: a27b8e14aa5925645a299b83f6d2da16, type: 2}
+  - {fileID: 11400000, guid: 3900811251c6b2046832eb63455475e0, type: 2}
+  - {fileID: 11400000, guid: 0f82316a3fc79b44bb08f07cc95fea1d, type: 2}
