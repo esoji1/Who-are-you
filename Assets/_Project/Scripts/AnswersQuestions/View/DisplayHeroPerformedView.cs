@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,8 +40,7 @@ public class DisplayHeroPerformedView : MonoBehaviour
 
         _heroPanelAnimation
             .Append(_hero.transform.DOScale(5f, 3f))
-            .Join(_hero.transform
-            .DORotate(new Vector3(0f, 0f, 360f), 3f, RotateMode.FastBeyond360));
+            .Join(_hero.transform.DORotate(new Vector3(0f, 0f, 360f), 3f, RotateMode.FastBeyond360));
 
         Tween tween = _heroPanel.transform.DOScaleY(1f, 3f);
     }

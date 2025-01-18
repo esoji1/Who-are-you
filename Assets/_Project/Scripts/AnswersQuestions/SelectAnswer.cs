@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,16 +11,18 @@ public class SelectAnswer : MonoBehaviour
 
     private TextMeshProUGUI _question;
     private List<QuestionData> _questionData;
-    private DisplayHeroPerformedView _displayHeroPerformedView;
 
     private Dictionary<Hero, int> _characterScores = new Dictionary<Hero, int>();
     private int _currentQuestionIndex = 0;
 
-    public void Initialze(TextMeshProUGUI question, List<QuestionData> questionData, DisplayHeroPerformedView displayHeroPerformedView)
+    public event Action<Hero> OnHero;
+
+    public TextMeshProUGUI Question => _question;
+
+    public void Initialze(TextMeshProUGUI question, List<QuestionData> questionData)
     {
         _question = question;
         _questionData = questionData;
-        _displayHeroPerformedView = displayHeroPerformedView;
     }
 
     public void StartSelectAnswer()
@@ -76,7 +79,7 @@ public class SelectAnswer : MonoBehaviour
             if (option.OptionText == textOption)
                 return option;
 
-        throw new Exception("Соответствие не найдено!");
+        throw new Exception("No match found!");
     }
 
     private void EndQuiz()
@@ -100,11 +103,9 @@ public class SelectAnswer : MonoBehaviour
 
         Hero topHero = topHeroes[UnityEngine.Random.Range(0, topHeroes.Count)];
 
-        _question.text = $"Викторина завершена! Ты — {topHero}!";
+        _options
+            .ForEach(button => button.gameObject.SetActive(false));
 
-        foreach (Button button in _options)
-            button.gameObject.SetActive(false);
-
-        _displayHeroPerformedView.ShowHero(topHero);
+        OnHero?.Invoke(topHero);
     }
 }
