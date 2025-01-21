@@ -12,12 +12,15 @@ public class DisplayHeroPerformedView : MonoBehaviour
 
     private Sprite _sprite;
     private Sequence _heroPanelAnimation;
+    private Tween _tween;
 
     public void Initialize(List<HeroSprite> heroSprite, GameObject heroPanel, Image hero)
     {
         _heroSprite = heroSprite;
         _heroPanel = heroPanel;
         _hero = hero;
+
+        LockHeroPanelBorders();
     }
 
     public void ShowHero(Hero hero)
@@ -34,6 +37,11 @@ public class DisplayHeroPerformedView : MonoBehaviour
         PlaySpawnAnimations();
     }
 
+    public void KillAnimation()
+    {
+        DOTween.KillAll();
+    }
+
     private void PlaySpawnAnimations()
     {
         _heroPanelAnimation = DOTween.Sequence();
@@ -42,6 +50,15 @@ public class DisplayHeroPerformedView : MonoBehaviour
             .Append(_hero.transform.DOScale(5f, 3f))
             .Join(_hero.transform.DORotate(new Vector3(0f, 0f, 360f), 3f, RotateMode.FastBeyond360));
 
-        Tween tween = _heroPanel.transform.DOScaleY(1f, 3f);
+        _tween = _heroPanel.transform.DOScaleY(1f, 3f).SetEase(Ease.OutBack);
+    }
+
+    private void LockHeroPanelBorders()
+    {
+        RectTransform panelRect = _heroPanel.GetComponent<RectTransform>();
+        panelRect.anchorMin = new Vector2(panelRect.anchorMin.x, 0);
+        panelRect.anchorMax = new Vector2(panelRect.anchorMax.x, 1);
+        panelRect.offsetMin = new Vector2(panelRect.offsetMin.x, 0);
+        panelRect.offsetMax = new Vector2(panelRect.offsetMax.x, 0);
     }
 }
